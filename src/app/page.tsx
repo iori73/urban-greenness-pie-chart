@@ -44,8 +44,22 @@ async function loadCityData(): Promise<CityData[]> {
               'GreenSpaceDistribution',
             ].includes(header)
           ) {
-            
-            value = typeof value === 'string' ? parseFloat(value) || 0 : value;
+            value = parseFloat(value as string) || 0;
+          }
+
+          // 数値に変換すべきフィールドを変換
+          if (
+            [
+              'Latitude',
+              'Longitude',
+              'GreenSpacePercentage',
+              'GreenSpacePercentage_Trees',
+              'GreenSpacePercentage_Grass',
+              'VegetationHealth',
+              'GreenSpaceDistribution',
+            ].includes(header)
+          ) {
+            value = parseFloat(value) || 0;
           }
 
           cityData[header] = value;
