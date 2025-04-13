@@ -135,7 +135,12 @@ const PieChart: React.FC<PieChartProps> = ({
       .endAngle((-Math.PI / 2) + (2 * Math.PI * validPercentage / 100));
     
     svg.append('path')
-      .attr('d', arc as any)
+      .attr('d', arc({
+        innerRadius: strokeWidth,
+        outerRadius: radius,
+        startAngle: -Math.PI / 2,
+        endAngle: (-Math.PI / 2) + (2 * Math.PI * validPercentage / 100)
+      }) as string | null)
       .attr('transform', `translate(${radius}, ${radius})`)
       .attr('fill', color);
       

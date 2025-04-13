@@ -27,10 +27,25 @@ async function loadCityData(): Promise<CityData[]> {
       .filter((line) => line.trim().length > 0)
       .map((line) => {
         const values = line.split(',');
-        const cityData: any = {};
+        const cityData: Partial<CityData> = {};
 
         headers.forEach((header, i) => {
-          let value: any = values[i]?.trim() || '';
+          let value: string | number = values[i]?.trim() || '';
+
+          // Convert to number if the field is numeric
+          if (
+            [
+              'Latitude',
+              'Longitude',
+              'GreenSpacePercentage',
+              'GreenSpacePercentage_Trees',
+              'GreenSpacePercentage_Grass',
+              'VegetationHealth',
+              'GreenSpaceDistribution',
+            ].includes(header)
+          ) {
+            value = parseFloat(value as string) || 0;
+          }
 
           // 数値に変換すべきフィールドを変換
           if (
@@ -64,7 +79,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  // Removed unused mapLoaded state
 
   // Move fallbackData here
   const fallbackData: CityData[] = [
@@ -248,7 +263,7 @@ export default function Home() {
           const container = document.createElement('div');
           container.className = 'popup-content';
 
-          const popup = new mapboxgl.Popup({
+          new mapboxgl.Popup({
             closeButton: true,
             closeOnClick: true,
             maxWidth: '160px',
@@ -262,7 +277,7 @@ export default function Home() {
           root.render(<CityTooltip cityName={cityName} />);
         });
 
-        setMapLoaded(true);
+        // Removed unused setMapLoaded call
       };
     });
 
@@ -295,7 +310,7 @@ export default function Home() {
     <main className="min-h-screen p-6 md:p-8">
       <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Urban Green Space Visualization</h1>
       <p className="text-base md:text-lg md:text-center mb-10 max-w-5xl mx-auto">
-        According to UN projections, 68% of the world's population is expected to live in urban areas by 2050.
+        According to UN projections, 68% of the world&apos;s population is expected to live in urban areas by 2050.
         <br className='hidden md:block'/>
         Amid rapid urbanization, I focused on the importance of harmony between cities and nature.
         <br />

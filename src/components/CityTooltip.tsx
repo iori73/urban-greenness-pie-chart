@@ -25,7 +25,7 @@ export default function CityTooltip({ cityName }: { cityName: string }) {
       <h3 className="text-sm font-semibold">{cityName}</h3>
       <button
         onClick={scrollToCity}
-        className="text-xs px-3 py-1 bg-[#186000] text-white rounded-full hover:bg-opacity-80 transition-all"
+        className="text-xs px-3 py-1  bg-[#18600071] text-white rounded-full hover:bg-[#186000] transition-all"
       >
         View Details
       </button>

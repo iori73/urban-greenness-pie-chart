@@ -224,14 +224,11 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
     GreenSpacePercentage_Trees = 0,
     GreenSpacePercentage_Grass = 0,
     VegetationHealth = 0,
-    GreenSpaceDistribution = 0,
   } = cityData || {};
 
   // Calculate the width based on percentage values for progress bars
   const treeBarWidth = `${GreenSpacePercentage_Trees * 2.4}px`; // 240px is full width
   const grassBarWidth = `${GreenSpacePercentage_Grass * 2.4}px`;
-  const vegetationHealthWidth = `${VegetationHealth * 240}px`;
-  const distributionWidth = `${GreenSpaceDistribution * 2.4}px`;
 
   // Calculate scale index for vegetation health image (1-10)
   const scaleIndex = Math.max(1, Math.min(10, Math.round(VegetationHealth * 10)));
