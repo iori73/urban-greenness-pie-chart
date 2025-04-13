@@ -1,192 +1,55 @@
-// // import Image from "next/image";
-
-// // export default function Home() {
-// //   return (
-// //     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-// //       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-// //         <Image
-// //           className="dark:invert"
-// //           src="/next.svg"
-// //           alt="Next.js logo"
-// //           width={180}
-// //           height={38}
-// //           priority
-// //         />
-// //         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-// //           <li className="mb-2 tracking-[-.01em]">
-// //             Get started by editing{" "}
-// //             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-// //               src/app/page.tsx
-// //             </code>
-// //             .
-// //           </li>
-// //           <li className="tracking-[-.01em]">
-// //             Save and see your changes instantly.
-// //           </li>
-// //         </ol>
-
-// //         <div className="flex gap-4 items-center flex-col sm:flex-row">
-// //           <a
-// //             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-// //             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-// //             target="_blank"
-// //             rel="noopener noreferrer"
-// //           >
-// //             <Image
-// //               className="dark:invert"
-// //               src="/vercel.svg"
-// //               alt="Vercel logomark"
-// //               width={20}
-// //               height={20}
-// //             />
-// //             Deploy now
-// //           </a>
-// //           <a
-// //             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-// //             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-// //             target="_blank"
-// //             rel="noopener noreferrer"
-// //           >
-// //             Read our docs
-// //           </a>
-// //         </div>
-// //       </main>
-// //       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-// //         <a
-// //           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-// //           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-// //           target="_blank"
-// //           rel="noopener noreferrer"
-// //         >
-// //           <Image
-// //             aria-hidden
-// //             src="/file.svg"
-// //             alt="File icon"
-// //             width={16}
-// //             height={16}
-// //           />
-// //           Learn
-// //         </a>
-// //         <a
-// //           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-// //           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-// //           target="_blank"
-// //           rel="noopener noreferrer"
-// //         >
-// //           <Image
-// //             aria-hidden
-// //             src="/window.svg"
-// //             alt="Window icon"
-// //             width={16}
-// //             height={16}
-// //           />
-// //           Examples
-// //         </a>
-// //         <a
-// //           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-// //           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-// //           target="_blank"
-// //           rel="noopener noreferrer"
-// //         >
-// //           <Image
-// //             aria-hidden
-// //             src="/globe.svg"
-// //             alt="Globe icon"
-// //             width={16}
-// //             height={16}
-// //           />
-// //           Go to nextjs.org →
-// //         </a>
-// //       </footer>
-// //     </div>
-// //   );
-// // }
-
-
-// 'use client';
-
-// import { useEffect, useState } from 'react';
-// import { CityData, loadCityData } from '../utils/dataLoader';
-// import CityCard from '../components/CityCard';
-
-// export default function Home() {
-//   const [cities, setCities] = useState<CityData[]>([]);
-//   const [loading, setLoading] = useState(true);
-  
-//   useEffect(() => {
-//     async function fetchData() {
-//       const data = await loadCityData();
-//       setCities(data);
-//       setLoading(false);
-//     }
-    
-//     fetchData();
-//   }, []);
-  
-//   if (loading) {
-//     return (
-//       <main className="flex min-h-screen flex-col items-center justify-center p-24">
-//         <p>Loading city data...</p>
-//       </main>
-//     );
-//   }
-  
-//   return (
-//     <main className="min-h-screen p-4 md:p-8">
-//       <h1 className="text-3xl font-bold mb-8 text-center">Urban Green Space Dashboard</h1>
-      
-//       <div className="flex flex-wrap justify-center gap-8">
-//         {cities.map((city) => (
-//           <div key={city.Name} className="w-full md:w-auto">
-//             <CityCard cityData={city} />
-//           </div>
-//         ))}
-//       </div>
-//     </main>
-//   );
-// }
-
-
-
-// src/app/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom/client';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
 import { CityData } from '../types';
-import CityCard from '../components/CityCard'; // 既存コンポーネント（表示しない）
-// import LayeredPieChart from '../components/LayeredPieChart'; // 新しいコンポーネント
-import SimpleLayeredPieChart from '../components/SimpleLayeredPieChart'; // 新しいコンポーネント
+import SimpleLayeredPieChart from '../components/SimpleLayeredPieChart';
+import CityTooltip from '../components/CityTooltip';
 
+// Set Mapbox access token
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
 
 // CSVデータの読み込み関数
 async function loadCityData(): Promise<CityData[]> {
   try {
     const response = await fetch('/data/city_data.csv');
     const csvText = await response.text();
-    
+
     // CSVパース（シンプルな実装）
     const lines = csvText.split('\n');
     const headers = lines[0].split(',');
-    
-    return lines.slice(1)
-      .filter(line => line.trim().length > 0)
-      .map(line => {
+
+    return lines
+      .slice(1)
+      .filter((line) => line.trim().length > 0)
+      .map((line) => {
         const values = line.split(',');
         const cityData: any = {};
-        
+
         headers.forEach((header, i) => {
           let value: any = values[i]?.trim() || '';
-          
+
           // 数値に変換すべきフィールドを変換
-          if (['Latitude', 'Longitude', 'GreenSpacePercentage', 
-               'GreenSpacePercentage_Trees', 'GreenSpacePercentage_Grass', 
-               'VegetationHealth', 'GreenSpaceDistribution'].includes(header)) {
+          if (
+            [
+              'Latitude',
+              'Longitude',
+              'GreenSpacePercentage',
+              'GreenSpacePercentage_Trees',
+              'GreenSpacePercentage_Grass',
+              'VegetationHealth',
+              'GreenSpaceDistribution',
+            ].includes(header)
+          ) {
             value = parseFloat(value) || 0;
           }
-          
+
           cityData[header] = value;
         });
-        
+
         return cityData as CityData;
       });
   } catch (error) {
@@ -199,14 +62,85 @@ export default function Home() {
   const [cities, setCities] = useState<CityData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+
+  // Move fallbackData here
+  const fallbackData: CityData[] = [
+    {
+      Name: 'New York City',
+      Latitude: 40.7128,
+      Longitude: -74.006,
+      URL: '',
+      GreenSpacePercentage: 23,
+      GreenSpacePercentage_Trees: 20,
+      GreenSpacePercentage_Grass: 3,
+      VegetationHealth: 0.64,
+      GreenSpaceDistribution: 0,
+    },
+    {
+      Name: 'Tokyo',
+      Latitude: 35.6762,
+      Longitude: 139.6503,
+      URL: '',
+      GreenSpacePercentage: 20,
+      GreenSpacePercentage_Trees: 14,
+      GreenSpacePercentage_Grass: 6,
+      VegetationHealth: 0.66,
+      GreenSpaceDistribution: 0,
+    },
+    {
+      Name: 'Sydney',
+      Latitude: -33.8688,
+      Longitude: 151.2093,
+      URL: '',
+      GreenSpacePercentage: 42,
+      GreenSpacePercentage_Trees: 34,
+      GreenSpacePercentage_Grass: 8,
+      VegetationHealth: 0.69,
+      GreenSpaceDistribution: 0,
+    },
+  ];
+
+  const displayCities = cities.length > 0 ? cities : fallbackData;
+
+  const regions = [
+    'Africa',
+    'Central East Asia',
+    'East, Southeast Asia and Oceania',
+    'Europe',
+    'Latin America',
+    'North America',
+    'South and West Asia',
+  ];
+
+  const getCityRegion = (cityName: string) => {
+    switch (cityName) {
+      case 'Tokyo':
+      case 'Sydney':
+      case 'Singapore':
+        return 'East, Southeast Asia and Oceania';
+      case 'London':
+      case 'Paris':
+        return 'Europe';
+      case 'São Paulo':
+        return 'Latin America';
+      case 'New York City':
+      case 'Toronto':
+        return 'North America';
+      default:
+        return '';
+    }
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
         console.log('Fetching data...');
         const data = await loadCityData();
         console.log('Data loaded:', data);
-        
+
         if (data && data.length > 0) {
           setCities(data);
         } else {
@@ -221,46 +155,124 @@ export default function Home() {
         setLoading(false);
       }
     }
-    
+
     fetchData();
   }, []);
-  
-  // ダミーデータ（CSVが読み込めなかった場合のフォールバック）
-  const fallbackData: CityData[] = [
-    {
-      Name: "New York City",
-      Latitude: 40.7128,
-      Longitude: -74.0060,
-      URL: "",
-      GreenSpacePercentage: 23,
-      GreenSpacePercentage_Trees: 20,
-      GreenSpacePercentage_Grass: 3,
-      VegetationHealth: 0.64,
-      GreenSpaceDistribution: 0
-    },
-    {
-      Name: "Tokyo",
-      Latitude: 35.6762,
-      Longitude: 139.6503,
-      URL: "",
-      GreenSpacePercentage: 20,
-      GreenSpacePercentage_Trees: 14,
-      GreenSpacePercentage_Grass: 6,
-      VegetationHealth: 0.66,
-      GreenSpaceDistribution: 0
-    },
-    {
-      Name: "Sydney",
-      Latitude: -33.8688,
-      Longitude: 151.2093,
-      URL: "",
-      GreenSpacePercentage: 42,
-      GreenSpacePercentage_Trees: 34,
-      GreenSpacePercentage_Grass: 8,
-      VegetationHealth: 0.69,
-      GreenSpaceDistribution: 0
-    }
-  ];
+
+  useEffect(() => {
+    if (!mapContainer.current) return;
+
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [139.69171, 35.6895],
+      zoom: 1,
+      renderWorldCopies: false,
+    });
+
+    // Wait for both style and source to be loaded
+    map.current.on('style.load', () => {
+      if (!map.current) return;
+
+      // Wait for the water layer to be available
+      if (map.current.getLayer('water')) {
+        map.current.setPaintProperty('water', 'fill-color', '#ECF1ED');
+      } else {
+        map.current.on('sourcedata', () => {
+          if (map.current?.getLayer('water')) {
+            map.current.setPaintProperty('water', 'fill-color', '#ECF1ED');
+          }
+        });
+      }
+    });
+
+    map.current.on('load', () => {
+      if (!map.current) return;
+
+      map.current.setProjection('mercator');
+
+      const svgIcon = `
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="19" fill="#186000" fill-opacity="0.2" stroke="#186000" stroke-width="4"/>
+        </svg>
+      `;
+
+      const img = new window.Image();
+      img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgIcon)}`;
+
+      img.onload = () => {
+        if (!map.current) return;
+        map.current.addImage('custom-icon', img);
+
+        // Convert cities data to GeoJSON
+        const citiesGeoJSON: FeatureCollection<Geometry, GeoJsonProperties> = {
+          type: 'FeatureCollection',
+          features: displayCities.map((city) => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [city.Longitude, city.Latitude],
+            },
+            properties: {
+              description: city.Name,
+              greenSpace: city.GreenSpacePercentage,
+            },
+          })),
+        };
+
+        map.current.addSource('cities', {
+          type: 'geojson',
+          data: citiesGeoJSON,
+        });
+
+        map.current.addLayer({
+          id: 'city-symbols',
+          type: 'symbol',
+          source: 'cities',
+          layout: {
+            'icon-image': 'custom-icon',
+            'icon-size': 1,
+            'icon-allow-overlap': true,
+          },
+        });
+
+        map.current.on('click', 'city-symbols', (e) => {
+          if (!e.features || e.features.length === 0 || !map.current) return;
+
+          const geometry = e.features[0].geometry as { type: 'Point'; coordinates: number[] };
+          const coordinates = geometry.coordinates.slice();
+          const cityName = e.features[0].properties?.description;
+
+          if (!cityName) return;
+
+          const container = document.createElement('div');
+          container.className = 'popup-content';
+
+          const popup = new mapboxgl.Popup({
+            closeButton: true,
+            closeOnClick: true,
+            maxWidth: '160px',
+            className: 'custom-popup',
+          })
+            .setLngLat(coordinates as [number, number])
+            .setDOMContent(container)
+            .addTo(map.current);
+
+          const root = ReactDOM.createRoot(container);
+          root.render(<CityTooltip cityName={cityName} />);
+        });
+
+        setMapLoaded(true);
+      };
+    });
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
+    };
+  }, [displayCities]);
 
   if (loading) {
     return (
@@ -269,10 +281,7 @@ export default function Home() {
       </main>
     );
   }
-  
-  // データが空の場合はフォールバックデータを使用
-  const displayCities = cities.length > 0 ? cities : fallbackData;
-  
+
   if (error && displayCities.length === 0) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -281,41 +290,93 @@ export default function Home() {
       </main>
     );
   }
-  
-  // return (
-  //   <main className="min-h-screen p-6 md:p-8 bg-gray-50">
-  //     <h1 className="text-3xl font-bold mb-10 text-center">Urban Green Space Dashboard</h1>
-      
-  //     <div className="flex flex-wrap justify-center gap-8">
-  //       {displayCities.map((city, index) => (
-  //         <div key={city.Name || index} className="w-full sm:w-auto bg-white rounded-lg shadow-lg p-6 transition-all hover:-translate-y-1 hover:shadow-xl">
-  //           <LayeredPieChart cityData={city} size={300} />
-            
-  //           {/* 既存のCityCardコンポーネントは非表示に */}
-  //           <div className="hidden">
-  //             <CityCard cityData={city} />
-  //           </div>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   </main>
-  // );
+
   return (
-    <main className="min-h-screen p-6 md:p-8 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-10 text-center">Urban Green Space Dashboard</h1>
-      
-      <div className="flex flex-wrap justify-center gap-8">
-        {displayCities.map((city, index) => (
-          <div key={city.Name || index} className="w-full sm:w-auto bg-white rounded-lg shadow-lg p-6 transition-all hover:-translate-y-1 hover:shadow-xl">
-            <SimpleLayeredPieChart cityData={city} size={300} />
-            
-            {/* 既存のコンポーネントは非表示に */}
-            <div className="hidden">
-              <CityCard cityData={city} />
+    <main className="min-h-screen p-6 md:p-8">
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Urban Green Space Visualization</h1>
+      <p className="text-base md:text-lg md:text-center mb-10 max-w-5xl mx-auto">
+        According to UN projections, 68% of the world's population is expected to live in urban areas by 2050.
+        <br className='hidden md:block'/>
+        Amid rapid urbanization, I focused on the importance of harmony between cities and nature.
+        <br />
+        This project aims to visualize the current state of green spaces in urban areas,
+        <br className='hidden md:block' />
+        and convey the importance of sustainable urban development that connects people with nature.
+        <br />
+        Source:
+        <a
+          href="https://hugsi.green/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'underline' }}
+        >
+          Husqvarna Urban Green Space Insights
+        </a>
+      </p>
+
+      <div ref={mapContainer} className="w-full aspect-3/4 md:w-4/5 md:aspect-16/9 md:min-w-6xl mx-auto mb-10" />
+
+      <div className="flex flex-col gap-12 max-w-7xl mx-auto">
+        {regions.map((region) => {
+          const regionCities = displayCities.filter((city) => getCityRegion(city.Name) === region);
+          if (regionCities.length === 0) return null;
+
+          return (
+            <div key={region} className="w-full">
+              <h2 className="text-4xl font-semibold mb-6 ">{region}</h2>
+              <div className="flex flex-wrap justify-start gap-8">
+                {regionCities.map((city, index) => (
+                  <div
+                    key={city.Name || index}
+                    id={`city-${city.Name.replace(/\s+/g, '-')}`}
+                    className="w-full sm:w-auto bg-white rounded-2xl shadow-sm py-6 px-7  "
+                  >
+                    <SimpleLayeredPieChart cityData={city} size={300} />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      <style jsx global>{`
+        .popup-content {
+          padding: 0.5rem;
+          text-align: center;
+        }
+        .custom-popup .mapboxgl-popup-content {
+          padding: 8px;
+          border-radius: 8px;
+        }
+        .mapboxgl-popup-close-button {
+          font-size: 1rem;
+          width: 1.25rem;
+          height: 1.25rem;
+          line-height: 1.25rem;
+          transition: all 0.2s;
+          border-radius: 100px;
+          margin: 0.2rem 0.2rem 0rem 0rem;
+          padding: 0;
+        }
+        .mapboxgl-popup-close-button span {
+          height: 1rem;
+        }
+        .mapboxgl-popup-close-button:hover {
+          background-color: #919191;
+          opacity: 0.4;
+          color: white;
+        }
+        .city-card-focused {
+          // border: #186000 solid 2px;
+          // transform: translateY(-4px);
+          box-shadow: 0 40px 45px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+          transition: all 0.3s ease;
+        }
+        .w-full.sm\\:w-auto {
+          transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+      `}</style>
     </main>
   );
 }
