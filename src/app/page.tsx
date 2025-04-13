@@ -59,10 +59,10 @@ async function loadCityData(): Promise<CityData[]> {
               'GreenSpaceDistribution',
             ].includes(header)
           ) {
-            value = parseFloat(value) || 0;
+            value = typeof value === 'string' ? parseFloat(value) || 0 : value || 0;
           }
 
-          cityData[header] = value;
+          cityData[header as keyof CityData] = value;
         });
 
         return cityData as CityData;
@@ -311,11 +311,11 @@ export default function Home() {
       <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Urban Green Space Visualization</h1>
       <p className="text-base md:text-lg md:text-center mb-10 max-w-5xl mx-auto">
         According to UN projections, 68% of the world&apos;s population is expected to live in urban areas by 2050.
-        <br className='hidden md:block'/>
+        <br className="hidden md:block" />
         Amid rapid urbanization, I focused on the importance of harmony between cities and nature.
         <br />
         This project aims to visualize the current state of green spaces in urban areas,
-        <br className='hidden md:block' />
+        <br className="hidden md:block" />
         and convey the importance of sustainable urban development that connects people with nature.
         <br />
         Source:
