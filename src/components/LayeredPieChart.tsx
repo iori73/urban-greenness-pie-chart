@@ -29,9 +29,9 @@ const LayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 300 
   const center = 150;
 
   // 各レイヤーの半径を設定
-  const radius1 = 50; // Percentage of urban green space (100px径)
-  const radius2 = 150; // Average health of urban vegetation (300px径)
-  const radius3 = 250; // Distribution of urban green space (500px径)
+  const radius1 = 50; // 内側の円 (緑地スペース)
+  const radius2 = 80; // 中間の円 (植生の健康度)
+  const radius3 = 120; // 外側の円 (分布)
 
   // 扇形のパスを生成する関数 (シンプルな実装)
   const createArcPath = (percentage: number, radius: number): string => {

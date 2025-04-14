@@ -1,209 +1,3 @@
-// // src/components/SimpleLayeredPieChart.tsx
-// 'use client';
-
-// import React from 'react';
-// import { CityData } from '../types';
-// import Image from 'next/image';
-
-// export default function SimpleLayeredPieChart({ cityData, size = 300 }: { cityData: CityData; size?: number }) {
-//   // Extract data from cityData with fallbacks
-//   const {
-//     Name = 'Unknown City',
-//     GreenSpacePercentage = 0,
-//     GreenSpacePercentage_Trees = 0,
-//     GreenSpacePercentage_Grass = 0,
-//     VegetationHealth = 0,
-//     GreenSpaceDistribution = 0,
-//   } = cityData || {};
-
-//   // Calculate the width based on percentage values for progress bars
-//   const treeBarWidth = `${GreenSpacePercentage_Trees * 2.4}px`; // 240px is full width
-//   const grassBarWidth = `${GreenSpacePercentage_Grass * 2.4}px`;
-//   const vegetationHealthWidth = `${VegetationHealth * 240}px`;
-//   const distributionWidth = `${GreenSpaceDistribution * 2.4}px`;
-
-//   // Calculate scale index for vegetation health image (1-10)
-//   const scaleIndex = Math.max(1, Math.min(10, Math.round(VegetationHealth * 10)));
-
-//   // Calculate pie chart parameters
-//   const radius1 = 50; // Percentage of urban green space (inner circle)
-//   const radius2 = 100; // Average health of urban vegetation (middle circle)
-//   const radius3 = 125; // Distribution of urban green space (outer circle)
-
-//   // Helper function to create arc for pie chart segments
-//   const createArc = (value: number, maxValue: number, radius: number, fill: string) => {
-//     // Skip if value is 0 or negative
-//     if (value <= 0) return null;
-
-//     // Convert value to percentage (0-1 range)
-//     const percentage = Math.min(value, maxValue) / maxValue;
-
-//     // Arc angle in radians
-//     const angle = percentage * 2 * Math.PI;
-
-//     // End coordinates of the arc
-//     const endX = 150 + radius * Math.sin(angle);
-//     const endY = 150 - radius * Math.cos(angle);
-
-//     // Arc flag (large arc or not)
-//     const largeArcFlag = percentage > 0.5 ? 1 : 0;
-
-//     // Generate SVG path
-//     return (
-//       <path
-//         d={`M 150 150 L 150 ${150 - radius} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
-//         fill={fill}
-//         opacity="0.7"
-//         style={{ transition: 'all 0.3s ease' }}
-//       />
-//     );
-//   };
-
-//   // Function to create image sector for pie chart
-//   const createImageSector = (
-//     value: number,
-//     maxValue: number,
-//     radius: number,
-//     imageUrl: string,
-//     opacity: number = 1,
-//   ) => {
-//     // Skip if value is 0 or negative
-//     if (value <= 0) return null;
-
-//     // Convert value to percentage (0-1 range)
-//     const percentage = Math.min(value, maxValue) / maxValue;
-
-//     // Arc angle in radians
-//     const angle = percentage * 2 * Math.PI;
-
-//     // Center point
-//     const centerX = 150;
-//     const centerY = 150;
-
-//     // Generate unique ID for clip path
-//     const clipPathId = `clip-path-${imageUrl.replace(/[^a-zA-Z0-9]/g, '')}-${Math.round(percentage * 100)}`;
-
-//     // Approximate the sector with a polygon
-//     // Use many points for a smooth arc
-//     const numPoints = 60;
-//     const points = [];
-//     points.push([centerX, centerY]); // Center point
-
-//     // Starting point (top)
-//     points.push([centerX, centerY - radius]);
-
-//     // Place points along the arc
-//     for (let i = 1; i <= numPoints; i++) {
-//       const currentAngle = (i / numPoints) * angle;
-//       if (currentAngle <= angle) {
-//         const x = centerX + radius * Math.sin(currentAngle);
-//         const y = centerY - radius * Math.cos(currentAngle);
-//         points.push([x, y]);
-//       }
-//     }
-
-//     // Convert polygon points to string
-//     const polygonPoints = points.map((point) => point.join(',')).join(' ');
-
-//     return (
-//       <>
-//         <defs>
-//           <clipPath id={clipPathId}>
-//             <polygon points={polygonPoints} />
-//           </clipPath>
-//         </defs>
-//         <image
-//           href={imageUrl}
-//           x={centerX - radius}
-//           y={centerY - radius}
-//           width={radius * 2}
-//           height={radius * 2}
-//           clipPath={`url(#${clipPathId})`}
-//           opacity={opacity}
-//           style={{ objectFit: 'cover' }}
-//         />
-//       </>
-//     );
-//   };
-
-//   // ----
-//   // First, let's handle the data extraction properly
-//   const cityDataObj = cityData || {};
-//   let distributionValue = 0;
-
-//   // Try multiple ways to access the distribution data
-//   if ('GreenSpaceDistribution' in cityDataObj) {
-//     distributionValue = Number(cityDataObj.GreenSpaceDistribution);
-//   } else {
-//     // Look for property with similar name that might have whitespace issues
-//     const distributionKey = Object.keys(cityDataObj).find(
-//       (key) => key.includes('GreenSpaceDistribution') || key.replace(/\s+/g, '') === 'GreenSpaceDistribution',
-//     );
-
-//     if (distributionKey) {
-//       distributionValue = Number(cityDataObj[distributionKey]);
-//     }
-//   }
-
-//   console.log('Extracted distribution value:', distributionValue);
-
-//   // Adjust text sizes based on chart size
-//   const fontSize = size < 150 ? size * 0.08 : size * 0.1;
-//   const smallFontSize = size < 150 ? size * 0.06 : size * 0.08;
-
-//   return (
-//     <div className="flex flex-col items-center gap-1">
-//       <svg width={size} height={size} className="relative">
-//         {/* 3. Distribution of urban green space (半径150px) - 画像で表示 */}
-//         {createImageSector(distributionValue, 100, radius3, '/images/3-bg-map.png', 1)}
-
-//         {/* 2. Average health of urban vegetation (半径100px) - 元画像のテクスチャを保持した扇形 */}
-//         {createImageSector(VegetationHealth * 100, 100, radius2, `/images/scales/scale-${scaleIndex}.png`, 0.5)}
-
-//         {/* 1. Trees (半径50px) */}
-//         {createArc(GreenSpacePercentage_Trees, 100, radius1, '#4A7C59')}
-
-//         {/* 1. Grass (半径50px、Treesの後に表示) */}
-//         <g transform={`rotate(${GreenSpacePercentage_Trees * 3.6}, 150, 150)`}>
-//           {createArc(GreenSpacePercentage_Grass, 100, radius1, '#A8C66C')}
-//         </g>
-
-//         <text
-//           x="50%"
-//           y="45%"
-//           textAnchor="middle"
-//           className="font-semibold"
-//           style={{ fontSize: fontSize }}
-//         >
-//           {cityData.GreenSpacePercentage}%
-//         </text>
-//         <text
-//           x="50%"
-//           y="60%"
-//           textAnchor="middle"
-//           className="fill-gray-600"
-//           style={{ fontSize: smallFontSize }}
-//         >
-//           Green Space
-//         </text>
-//       </svg>
-      
-//       <div className="flex flex-wrap justify-center gap-2 text-sm" style={{ fontSize: smallFontSize }}>
-//         <div className="flex items-center gap-1">
-//           <div className="w-3 h-3 rounded-full bg-[#2D5A27]"></div>
-//           <span>Trees {cityData.GreenSpacePercentage_Trees}%</span>
-//         </div>
-//         <div className="flex items-center gap-1">
-//           <div className="w-3 h-3 rounded-full bg-[#4B7B1C]"></div>
-//           <span>Grass {cityData.GreenSpacePercentage_Grass}%</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 // src/components/SimpleLayeredPieChart.tsx
 'use client';
 
@@ -216,7 +10,7 @@ type LayeredPieChartProps = {
   size?: number;
 };
 
-const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 300 }) => {
+const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 370 }) => {
   // Extract data from cityData with fallbacks
   const {
     Name = 'Unknown City',
@@ -234,9 +28,9 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
   const scaleIndex = Math.max(1, Math.min(10, Math.round(VegetationHealth * 10)));
 
   // Calculate pie chart parameters
-  const radius1 = 50; // Percentage of urban green space (inner circle)
-  const radius2 = 100; // Average health of urban vegetation (middle circle)
-  const radius3 = 125; // Distribution of urban green space (outer circle)
+  const radius1 = 75; // Percentage of urban green space (inner circle)
+  const radius2 = 125; // Average health of urban vegetation (middle circle)
+  const radius3 = 150; // Distribution of urban green space (outer circle)
 
   // Helper function to create arc for pie chart segments
   const createArc = (value: number, maxValue: number, radius: number, fill: string) => {
@@ -261,6 +55,8 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
       <path
         d={`M 150 150 L 150 ${150 - radius} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY} Z`}
         fill={fill}
+        stroke="#f5f9ef"
+        strokeWidth="2"
         opacity="0.7"
         style={{ transition: 'all 0.3s ease' }}
       />
@@ -356,7 +152,7 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
   console.log('Extracted distribution value:', distributionValue);
 
   return (
-    <div className="w-full inline-flex flex-col justify-start items-start gap-2  md:gap-4">
+    <div className="w-full inline-flex flex-col justify-start items-start gap-1">
       <svg width={size} height={size} viewBox="0 0 300 300" className="mx-auto">
         {/* 3. Distribution of urban green space (半径150px) - 画像で表示 */}
         {createImageSector(distributionValue, 100, radius3, '/images/3-bg-map.png', 1)}
@@ -377,28 +173,24 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
         {Name}
       </div>
 
-      <div className="self-stretch flex flex-col justify-start items-start gap-8 my-4">
+      <div className="max-w-[370px] self-stretch flex flex-col justify-start items-start gap-6 my-6 px-6">
         {/* Green Space Percentage Row */}
-        <div className="flex flex-col justify-start items-start w-full gap-1">
-          <div className="self-stretch flex flex-col justify-start items-start gap-1">
-            <div className="justify-between text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
+        <div className="flex flex-col justify-start items-start w-full gap-4">
+          <div className="self-stretch flex justify-between items-center gap-8 w-full">
+            <div className="text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
               Percentage of urban green space
             </div>
-            <div className="self-stretch inline-flex justify-between items-center gap-4">
-              <div className="w-60 h-4 relative bg-[#ececec]/50 rounded-[82px]  overflow-hidden">
-                <div className="h-6 left-[-0.10px] top-[-3.50px] absolute inline-flex justify-start items-start">
-                  <div className="self-stretch bg-[#4a7c59]" style={{ width: treeBarWidth }} />
-                  <div className="self-stretch bg-[#a8c66c]" style={{ width: grassBarWidth }} />
-                </div>
-              </div>
-              <div className="justify-start text-black text-3xl font-normal font-['Roboto']">
-                {GreenSpacePercentage}%
-              </div>
+            <div className="justify-start text-3xl font-medium font-['Roboto']">{GreenSpacePercentage}%</div>
+          </div>
+
+          <div className="w-full h-4 relative bg-[#ececec]/50 rounded-[82px] overflow-hidden">
+            <div className="h-6 left-[-0.10px] top-[-3.50px] absolute inline-flex justify-start items-start">
+              <div className="self-stretch bg-[#4a7c59]" style={{ width: treeBarWidth }} />
+              <div className="self-stretch bg-[#a8c66c]" style={{ width: grassBarWidth }} />
             </div>
           </div>
 
-          <div className="inline-flex justify-start items-center gap-6">
-            {/* Trees Item */}
+          <div className="w-full inline-flex justify-between items-center gap-6">
             <div className="flex justify-start items-center gap-2">
               <div className="flex justify-start items-center gap-1">
                 <div className="relative">
@@ -416,12 +208,11 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
                   Trees
                 </div>
               </div>
-              <div className="justify-start text-black text-2xl font-normal font-['Roboto']">
+              <div className="justify-start text-black text-2xl font-medium font-['Roboto']">
                 {GreenSpacePercentage_Trees}%
               </div>
             </div>
 
-            {/* Grass Item */}
             <div className="flex justify-start items-center gap-2">
               <div className="flex justify-start items-center gap-1">
                 <div className="relative">
@@ -439,7 +230,7 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
                   Grass
                 </div>
               </div>
-              <div className="justify-start text-black text-2xl font-normal font-['Roboto']">
+              <div className="justify-start text-black text-2xl font-medium font-['Roboto']">
                 {GreenSpacePercentage_Grass}%
               </div>
             </div>
@@ -447,62 +238,56 @@ const SimpleLayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size 
         </div>
 
         {/* Vegetation Health Row */}
-        <div className="self-stretch flex flex-col justify-start items-start gap-1">
-          <div className="inline-flex justify-start items-center gap-1">
-            <div className="justify-start text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
+        <div className="flex flex-col justify-start items-start w-full gap-4">
+          <div className="self-stretch flex justify-between items-center gap-8 w-full">
+            <div className="text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
               Average health of urban vegetation
             </div>
+            <div className="justify-start text-3xl font-medium font-['Roboto']">{VegetationHealth.toFixed(2)}</div>
           </div>
-          <div className="self-stretch inline-flex justify-between items-center gap-4">
-            <div className="w-60 h-4 relative bg-[#ececec]/50 rounded-[82px] overflow-hidden">
-              <div
-                className="h-6 left-0 top-[-3.50px] absolute overflow-hidden"
-                style={{ width: `${VegetationHealth * 100}%` }}
-              >
-                <div className="relative size-[340px] left-[-93px] top-[-153px]">
-                  <Image
-                    src={`/images/scales/scale-${scaleIndex}.png`}
-                    alt={`Vegetation health: ${VegetationHealth.toFixed(2)}`}
-                    width={340}
-                    height={340}
-                    priority
-                    className="object-cover"
-                  />
-                </div>
+          <div className="w-full h-4 relative bg-[#ececec]/50 rounded-[82px] overflow-hidden">
+            <div
+              className="h-6 left-0 top-[-3.50px] absolute overflow-hidden"
+              style={{ width: `${VegetationHealth * 100}%` }}
+            >
+              <div className="relative size-[340px] left-[-93px] top-[-153px]">
+                <Image
+                  src={`/images/scales/scale-${scaleIndex}.png`}
+                  alt={`Vegetation health: ${VegetationHealth.toFixed(2)}`}
+                  width={340}
+                  height={340}
+                  priority
+                  className="object-cover"
+                />
               </div>
-            </div>
-            <div className="justify-start text-black text-3xl font-normal font-['Roboto']">
-              {VegetationHealth.toFixed(2)}
             </div>
           </div>
         </div>
 
         {/* Distribution Row */}
-        <div className="flex flex-col justify-start items-start gap-1">
-          <div className="inline-flex justify-start items-center gap-1">
-            <div className="justify-start text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
+        <div className="flex flex-col justify-start items-start w-full gap-4">
+          <div className="self-stretch flex justify-between items-center gap-8 w-full">
+            <div className="text-black/50 text-lg font-normal font-['Roboto'] leading-tight">
               Distribution of urban green space
             </div>
+            <div className="justify-start text-3xl font-medium font-['Roboto']">{distributionValue}%</div>
           </div>
-          <div className="self-stretch inline-flex justify-between items-center gap-4">
-            <div className="w-60 h-4 relative bg-[#ececec]/50 rounded-[82px] overflow-hidden">
-              <div
-                className="h-6 left-0 top-[-3.50px] absolute overflow-hidden"
-                style={{ width: `${distributionValue}%` }}
-              >
-                <div className="relative size-[340px] left-[-93px] top-[-153px]">
-                  <Image
-                    src="/images/3-bg-map.png"
-                    alt={`Distribution: ${distributionValue}%`}
-                    width={340}
-                    height={340}
-                    priority
-                    className="object-cover opacity-100"
-                  />
-                </div>
+          <div className="w-full h-4 relative bg-[#ececec]/50 rounded-[82px] overflow-hidden">
+            <div
+              className="h-6 left-0 top-[-3.50px] absolute overflow-hidden"
+              style={{ width: `${distributionValue}%` }}
+            >
+              <div className="relative size-[340px] left-[-93px] top-[-153px]">
+                <Image
+                  src="/images/3-bg-map.png"
+                  alt={`Distribution: ${distributionValue}%`}
+                  width={340}
+                  height={340}
+                  priority
+                  className="object-cover opacity-100"
+                />
               </div>
             </div>
-            <div className="justify-start text-black text-3xl font-normal font-['Roboto']">{distributionValue}%</div>
           </div>
         </div>
       </div>

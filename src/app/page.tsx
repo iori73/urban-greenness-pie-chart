@@ -329,7 +329,8 @@ export default function Home() {
                   <div
                     key={city.Name || index}
                     id={`city-${city.Name.replace(/\s+/g, '-')}`}
-                    className="w-full sm:w-auto bg-white rounded-2xl shadow-sm py-6 px-7  "
+                    className="w-full sm:w-auto bg-white rounded-2xl  p-6"
+                    style={{ width: 'fit-content', maxWidth: '380px', border: '#ECF1EE 4px solid' }}
                   >
                     <SimpleLayeredPieChart cityData={city} size={300} />
                   </div>
