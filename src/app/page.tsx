@@ -314,7 +314,7 @@ export default function Home() {
         </a>
       </p>
 
-      <div ref={mapContainer} className="w-full aspect-3/4 md:w-4/5 md:aspect-16/9 md:min-w-6xl mx-auto mb-10" />
+      <div ref={mapContainer} className="w-full h-[60vh] mb-10" />
 
       <div className="flex flex-col gap-12 max-w-7xl mx-auto">
         {regions.map((region) => {
