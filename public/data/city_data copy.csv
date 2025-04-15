@@ -1,4 +1,0 @@
-Name,Latitude,Longitude,URL,GreenSpacePercentage,GreenSpacePercentage_Trees,GreenSpacePercentage_Grass,VegetationHealth,GreenSpaceDistribution
-New York City,40.71427,-74.00597,https://hugsi.green/cities/New_York_City,23,20,3,0.64,9
-Tokyo,35.6895,139.69171,https://hugsi.green/cities/Tokyo,20,14,6,0.66,5
-Sydney,-33.865143,151.2099,https://hugsi.green/cities/Sydney,42,34,8,0.69,33

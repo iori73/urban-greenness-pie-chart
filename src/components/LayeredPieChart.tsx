@@ -9,7 +9,7 @@ interface LayeredPieChartProps {
   size?: number;
 }
 
-const LayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 300 }) => {
+const LayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 200 }) => {
   const {
     Name = 'Unknown City',
     GreenSpacePercentage = 0,
@@ -77,7 +77,7 @@ const LayeredPieChart: React.FC<LayeredPieChartProps> = ({ cityData, size = 300 
       </div>
 
       {/* SVGコンテナのサイズを固定し、viewBoxも調整 */}
-      <svg width={size} height={size} viewBox="0 0 300 300" className="mx-auto">
+      <svg width={size} height={size} viewBox="0 0 300 300" className=" ">
         {/* コンソールにデバッグ情報を出力 */}
         <text
           x="10"

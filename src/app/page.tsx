@@ -324,13 +324,13 @@ export default function Home() {
           return (
             <div key={region} className="w-full">
               <h2 className="text-4xl font-semibold mb-6 ">{region}</h2>
-              <div className="flex flex-wrap justify-start gap-8">
+              <div className="flex flex-wrap justify-start gap-12">
                 {regionCities.map((city, index) => (
                   <div
                     key={city.Name || index}
                     id={`city-${city.Name.replace(/\s+/g, '-')}`}
-                    className="w-full sm:w-auto bg-white rounded-2xl  p-6"
-                    style={{ width: 'fit-content', maxWidth: '380px', border: '#ECF1EE 4px solid' }}
+                    className="w-full sm:w-auto bg-white rounded-2xl pt-0 p-6"
+                    style={{ width: 'fit-content', maxWidth: '376px' }}
                   >
                     <SimpleLayeredPieChart cityData={city} size={300} />
                   </div>
